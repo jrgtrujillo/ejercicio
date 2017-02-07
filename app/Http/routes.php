@@ -27,3 +27,8 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 // Rutas para registro de usuarios
 
 Route::resource('usuario', 'UsuarioController');
+
+// Rutas para ajax
+Route::get('pais', 'UsuarioController@listing');
+Route::get('departamentos/{id}', 'UsuarioController@obtenerdepartamentos');
+Route::get('ciudades/{id}', 'UsuarioController@obtenerCiudades');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+
 class UsuarioController extends Controller
 {
     /**
@@ -16,8 +17,35 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        return view('user/index');
+      $usuarios = \App\Usuario::all();
+      $municipio = \App\Ciudad::lists('nombre', 'id');
+      foreach ($usuarios as $user) {
+        $user->id_ciudad = $municipio[$user->id_ciudad];
+      }
+      return view('user.index',compact('usuarios'));
     }
+
+    public function listing(){
+      $paises = \App\Pais::all();
+      return response()->json(
+        $paises->toArray()
+      );
+    }
+
+    public function obtenerCiudades(Request $request, $id){
+      if($request->ajax()){
+        $ciudades = \App\Ciudad::ciudades($id);
+        return response()->json($ciudades);
+      }
+    }
+
+    public function obtenerDepartamentos(Request $request, $id){
+      if($request->ajax()){
+        $ciudades = \App\Departamento::departamentos($id);
+        return response()->json($ciudades);
+      }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +54,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.crear');
     }
 
     /**
@@ -37,7 +65,13 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      \App\Usuario::create([
+        'nombre'=>$request['nombre'],
+        'id_ciudad'=>$request['ciudad'],
+        'correo'=>$request['correo']
+      ]);
+
+      return redirect('/usuarios');
     }
 
     /**
@@ -59,7 +93,8 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        //
+      $usuarios = \App\Usuario::find($id);
+      return view('user.editar', ['usuario'=>$usuarios]);
     }
 
     /**
@@ -71,7 +106,10 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $usuarios = \App\Usuario::find($id);
+      $usuarios->fill($request->all());
+      $usuarios->save();
+
     }
 
     /**
@@ -82,6 +120,7 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+      \App\Usuario::destroy($id);
+      return redirect('/usuarios');
     }
 }
