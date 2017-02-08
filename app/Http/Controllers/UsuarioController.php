@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\CrearUsuarioRequest;
+use App\Http\Requests\ActualizarUsuarioRequest;
 use App\Http\Controllers\Controller;
 
 
@@ -63,7 +65,7 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CrearUsuarioRequest $request)
     {
       \App\Usuario::create([
         'nombre'=>$request['nombre'],
@@ -71,7 +73,7 @@ class UsuarioController extends Controller
         'correo'=>$request['correo']
       ]);
 
-      return redirect('/usuarios');
+      return redirect('/usuario');
     }
 
     /**
@@ -104,12 +106,13 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ActualizarUsuarioRequest $request, $id)
     {
       $usuarios = \App\Usuario::find($id);
       $usuarios->fill($request->all());
       $usuarios->save();
 
+      return redirect('/usuario');
     }
 
     /**
@@ -121,6 +124,6 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
       \App\Usuario::destroy($id);
-      return redirect('/usuarios');
+      return redirect('/usuario');
     }
 }

@@ -32,3 +32,6 @@ Route::resource('usuario', 'UsuarioController');
 Route::get('pais', 'UsuarioController@listing');
 Route::get('departamentos/{id}', 'UsuarioController@obtenerdepartamentos');
 Route::get('ciudades/{id}', 'UsuarioController@obtenerCiudades');
+
+// Rutas de CorreoController
+Route::resource('mail', 'CorreoController');

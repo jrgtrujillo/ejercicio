@@ -23,7 +23,7 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
         <div class="form-group">
-          <a href="register" class="btn btn-primary">Registrar</a>
+          <a href="auth/register" class="btn btn-primary">Registrar</a>
         </div>
     </form>
   </div>
