@@ -17,9 +17,11 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     // Funcion que lista los usuarios creados
     public function index()
     {
       $usuarios = \App\Usuario::all();
+      // Lista los municipios para enviar el nombre del municipio en la consulta de usuarios
       $municipio = \App\Ciudad::lists('nombre', 'id');
       foreach ($usuarios as $user) {
         $user->id_ciudad = $municipio[$user->id_ciudad];
@@ -27,6 +29,7 @@ class UsuarioController extends Controller
       return view('user.index',compact('usuarios'));
     }
 
+    // Funcion para listar paises que son cargados en el formulario de registro de usuarios
     public function listing(){
       $paises = \App\Pais::all();
       return response()->json(
@@ -34,6 +37,7 @@ class UsuarioController extends Controller
       );
     }
 
+    // Lista las ciudades por departamento cargados en el formulario de registro de usuarios
     public function obtenerCiudades(Request $request, $id){
       if($request->ajax()){
         $ciudades = \App\Ciudad::ciudades($id);
@@ -41,6 +45,7 @@ class UsuarioController extends Controller
       }
     }
 
+    // Lista los departamentos por pais cargados en el formulario de registro de usuarios
     public function obtenerDepartamentos(Request $request, $id){
       if($request->ajax()){
         $ciudades = \App\Departamento::departamentos($id);
@@ -54,6 +59,7 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     // Carga la vista para crear usuarios
     public function create()
     {
         return view('user.crear');
@@ -65,6 +71,7 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+     // Funcion para crear usuarios validados en el Request CrearUsuarioRequest
     public function store(CrearUsuarioRequest $request)
     {
       \App\Usuario::create([
@@ -93,8 +100,11 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     // Funcion para consultar los datos de un usuario
+     // Carga el formulario para editar usuarios
     public function edit($id)
     {
+      // Consulta los datos de usuario por id y son enviados a la vista de editar usuario
       $usuarios = \App\Usuario::find($id);
       return view('user.editar', ['usuario'=>$usuarios]);
     }
@@ -106,9 +116,12 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     // Funcion para actualizar usuario validada por el request ActualizarUsuarioRequest
     public function update(ActualizarUsuarioRequest $request, $id)
     {
+      // Consutla de usuario por identificacion
       $usuarios = \App\Usuario::find($id);
+      // Se envian los datos a actualizar
       $usuarios->fill($request->all());
       $usuarios->save();
 
@@ -121,6 +134,8 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // Funcion para eliminar Usuarios
     public function destroy($id)
     {
       \App\Usuario::destroy($id);

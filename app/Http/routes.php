@@ -25,13 +25,14 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 // Rutas para registro de usuarios
-
 Route::resource('usuario', 'UsuarioController');
 
-// Rutas para ajax
+// Rutas para ajax y carga de pais, departamento y ciudad
 Route::get('pais', 'UsuarioController@listing');
 Route::get('departamentos/{id}', 'UsuarioController@obtenerdepartamentos');
 Route::get('ciudades/{id}', 'UsuarioController@obtenerCiudades');
 
 // Rutas de CorreoController
 Route::resource('mail', 'CorreoController');
+// Ruta de enviar correo
+Route::get('enviar', 'CorreoController@enviarCorreos');

@@ -21,7 +21,8 @@
       <div class="col-xs-6 col-md-4">
         <div class="list-group">
           <a href="/usuario" class="list-group-item">Usuarios</a>
-          <a href="/mail/create" class="list-group-item">Correos</a>
+          <a href="/mail/create" class="list-group-item">Enviar Correo</a>
+          <a href="/mail" class="list-group-item">Ver Correos</a>
           <a href="/auth/logout" class="list-group-item">
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir
           </a>

@@ -21,6 +21,8 @@ class ActualizarUsuarioRequest extends Request
      *
      * @return array
      */
+
+     // Reglas de validacion para la actualizcion de los usuarios
     public function rules()
     {
         return [

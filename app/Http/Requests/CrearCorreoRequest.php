@@ -21,6 +21,7 @@ class CrearCorreoRequest extends Request
      *
      * @return array
      */
+     // Reglas de actualizacion para la creacion de correos
     public function rules()
     {
         return [

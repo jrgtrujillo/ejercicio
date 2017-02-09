@@ -21,6 +21,7 @@ class CrearUsuarioRequest extends Request
      *
      * @return array
      */
+     // Reglas de validacion para la creacion de usuarios
     public function rules()
     {
         return [
